@@ -25,5 +25,5 @@ in project root folder
   Ensure uniforming your code style using these commands:
   - To run **Prettier** use<br>
     ```npm run format```
-  - To run **ESLint** with ```airbnb-typescript config```, find and fix linter errors use<br>
+  - To run **ESLint** use<br>
     ```npm run lint```<br>
