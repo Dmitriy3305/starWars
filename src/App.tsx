@@ -3,11 +3,13 @@ import SearchInput from './components/searchInput';
 import SearchButton from './components/searchButton';
 import { State } from './types';
 import ResultsComponent from './components/searchResult';
+import './App.css';
 
 class App extends React.Component<object, Readonly<State>> {
   constructor(props: object) {
     super(props);
     this.state = {
+      isLoading: false,
       searchTerm: '',
       results: [],
     };
@@ -38,12 +40,12 @@ class App extends React.Component<object, Readonly<State>> {
     if (searchTerm.trim() !== '') {
       url += `?search=${searchTerm}`;
     }
+    this.setState({ isLoading: true });
 
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        this.setState({ results: data.results });
-        console.log(data.results);
+        this.setState({ results: data.results, isLoading: false });
       })
       .catch((error) => {
         console.log('Error:', error);
@@ -55,18 +57,23 @@ class App extends React.Component<object, Readonly<State>> {
     return (
       <div>
         <h1>Star Wars characters</h1>
+        {this.state.isLoading ? (
+          <div className="loader">Loading...</div>
+        ) : (
+          <div>
+            <div>
+              <SearchInput
+                searchTerm={searchTerm}
+                handleInputChange={this.handleInputChange}
+              />
+              <SearchButton onClick={this.handleSearch} />
+            </div>
 
-        <div>
-          <SearchInput
-            searchTerm={searchTerm}
-            handleInputChange={this.handleInputChange}
-          />
-          <SearchButton onClick={this.handleSearch} />
-        </div>
-
-        <div>
-          <ResultsComponent results={results} />
-        </div>
+            <div>
+              <ResultsComponent results={results} />
+            </div>
+          </div>
+        )}
       </div>
     );
   }

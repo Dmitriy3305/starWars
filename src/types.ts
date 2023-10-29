@@ -10,6 +10,7 @@ export interface SearchResult {
 }
 
 export interface State {
+  isLoading: boolean;
   searchTerm: string;
   results: SearchResult[];
 }
