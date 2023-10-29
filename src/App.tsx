@@ -1,7 +1,10 @@
 import React from 'react';
+import SearchInput from './components/searchInput';
+import SearchButton from './components/searchButton';
 import { State } from './types';
+import ResultsComponent from './components/searchResult';
 
-export default class App extends React.Component<object, Readonly<State>> {
+class App extends React.Component<object, Readonly<State>> {
   constructor(props: object) {
     super(props);
     this.state = {
@@ -18,15 +21,15 @@ export default class App extends React.Component<object, Readonly<State>> {
     this.search();
   }
 
-  handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+  handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ searchTerm: e.target.value });
-  }
+  };
 
-  handleSearch() {
+  handleSearch = () => {
     const { searchTerm } = this.state;
     localStorage.setItem('search', searchTerm);
     this.search();
-  }
+  };
 
   search() {
     const { searchTerm } = this.state;
@@ -51,33 +54,22 @@ export default class App extends React.Component<object, Readonly<State>> {
     const { searchTerm, results } = this.state;
     return (
       <div>
-        <h1>Search Page</h1>
+        <h1>Star Wars characters</h1>
 
         <div>
-          <input
-            type="text"
-            value={searchTerm}
-            onChange={this.handleInputChange}
-            placeholder="Search term"
+          <SearchInput
+            searchTerm={searchTerm}
+            handleInputChange={this.handleInputChange}
           />
-          <button onClick={this.handleSearch}>Search</button>
+          <SearchButton onClick={this.handleSearch} />
         </div>
 
         <div>
-          {results.map((result) => (
-            <div key={result.name}>
-              <p>
-                <h3>name: {result.name}</h3>
-              </p>
-              <p>
-                Height: {result.height}, Mass: {result.mass}
-              </p>
-              <p>Hair color: {result.hair_color}</p>
-              <p>Skin color: {result.skin_color}</p>
-            </div>
-          ))}
+          <ResultsComponent results={results} />
         </div>
       </div>
     );
   }
 }
+
+export default App;

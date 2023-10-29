@@ -13,3 +13,16 @@ export interface State {
   searchTerm: string;
   results: SearchResult[];
 }
+
+export interface SearchInputProps {
+  searchTerm: string;
+  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export interface SearchButtonProps {
+  onClick: (e: React.MouseEvent<HTMLElement>) => void;
+}
+
+export interface ResultsProps {
+  results: SearchResult[];
+}
