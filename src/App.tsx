@@ -18,9 +18,12 @@ class App extends React.Component<object, Readonly<State>> {
   componentDidMount() {
     const savedSearch = localStorage.getItem('search');
     if (savedSearch !== null) {
-      this.setState({ searchTerm: savedSearch });
+      this.setState({ searchTerm: savedSearch }, () => {
+        this.search();
+      });
+    } else {
+      this.search();
     }
-    this.search();
   }
 
   handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,7 +61,7 @@ class App extends React.Component<object, Readonly<State>> {
       <div>
         <h1>Star Wars characters</h1>
         {this.state.isLoading ? (
-          <div className="loader">Loading...</div>
+          <div className="loader">Loading... </div>
         ) : (
           <div>
             <div>
