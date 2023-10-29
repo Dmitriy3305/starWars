@@ -11,6 +11,7 @@ class SearchInput extends React.Component<SearchInputProps> {
         value={searchTerm}
         onChange={handleInputChange}
         placeholder="Search term"
+        className="search-input"
       />
     );
   }

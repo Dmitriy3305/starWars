@@ -5,14 +5,14 @@ class ResultsComponent extends React.Component<ResultsProps> {
   render() {
     const { results } = this.props;
     return (
-      <div>
+      <div className="search-results">
         {results.map((result) => (
           <div key={result.name}>
-            <p>Name: {result.name}</p>
-            <p>Height: {result.height}</p>
-            <p>Mass: {result.mass}</p>
-            <p>Hair color: {result.hair_color}</p>
-            <p>Skin color: {result.skin_color}</p>
+            <p className="results-item">Name: {result.name}</p>
+            <p className="results-item">Height: {result.height}</p>
+            <p className="results-item">Mass: {result.mass}</p>
+            <p className="results-item">Hair color: {result.hair_color}</p>
+            <p className="results-item">Skin color: {result.skin_color}</p>
           </div>
         ))}
       </div>

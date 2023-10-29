@@ -5,7 +5,11 @@ class SearchButton extends React.Component<SearchButtonProps> {
   render() {
     const { onClick } = this.props;
 
-    return <button onClick={onClick}>Search</button>;
+    return (
+      <button className="search-button" onClick={onClick}>
+        Search
+      </button>
+    );
   }
 }
 

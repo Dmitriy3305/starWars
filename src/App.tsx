@@ -58,13 +58,13 @@ class App extends React.Component<object, Readonly<State>> {
   render() {
     const { searchTerm, results } = this.state;
     return (
-      <div>
-        <h1>Star Wars characters</h1>
+      <div className="App">
+        <h1>Star Wars Characters</h1>
         {this.state.isLoading ? (
-          <div className="loader">Loading... </div>
+          <div className="loader"></div>
         ) : (
-          <div>
-            <div>
+          <div className="search-result-container">
+            <div className="search-container">
               <SearchInput
                 searchTerm={searchTerm}
                 handleInputChange={this.handleInputChange}
@@ -72,7 +72,7 @@ class App extends React.Component<object, Readonly<State>> {
               <SearchButton onClick={this.handleSearch} />
             </div>
 
-            <div>
+            <div className="results-container">
               <ResultsComponent results={results} />
             </div>
           </div>
