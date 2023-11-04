@@ -1,6 +1,6 @@
 import { ResultsProps } from '../types';
 
-const ResultsComponent = (props: ResultsProps) => {
+const CharacterData = (props: ResultsProps) => {
   const { results } = props;
   return (
     <div className="search-results">
@@ -17,4 +17,4 @@ const ResultsComponent = (props: ResultsProps) => {
   );
 };
 
-export default ResultsComponent;
+export default CharacterData;

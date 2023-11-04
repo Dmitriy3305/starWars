@@ -26,11 +26,7 @@ export interface SearchButtonProps {
 
 export interface ResultsProps {
   results: SearchResult[];
-  currentPage?: number;
   totalPages?: number;
-  itemsPerPage?: number;
-  handlePageChange: (page: number) => void;
-  handleItemsPerPageChange: (itemsPerPage: number) => void;
 }
 
 export interface PageControlProps {

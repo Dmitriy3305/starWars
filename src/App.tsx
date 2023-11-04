@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import SearchInput from './components/searchInput';
 import SearchButton from './components/searchButton';
-import ResultsComponent from './components/searchResult';
+import CharacterData from './components/characterData';
 import './App.css';
 import { SearchResult } from './types';
 import PageControl from './components/pageControl';
@@ -13,7 +13,7 @@ const App = () => {
   const [results, setResults] = useState<SearchResult[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [itemsPerPage] = useState(10);
 
   useEffect(() => {
     const savedSearch = localStorage.getItem('search');
@@ -39,17 +39,12 @@ const App = () => {
   const performSearch = (searchTerm: string, page = 1) => {
     const url = `https://swapi.dev/api/people/?page=${page}&search=${searchTerm}`;
     setIsLoading(true);
-    console.log(page);
 
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
         if (data.results) {
-          if (page === 1) {
-            setResults(data.results);
-          } else {
-            setResults(data.results);
-          }
+          setResults(data.results);
           setCurrentPage(page);
           setTotalPages(Math.ceil(data.count / itemsPerPage));
           setIsLoading(false);
@@ -78,48 +73,39 @@ const App = () => {
   };
 
   return (
-    <Router>
-      <div className="App">
-        <h1>Star Wars Characters</h1>
-        <div className="search-result-container">
-          <div className="search-container">
-            <SearchInput
-              searchTerm={searchTerm}
-              handleInputChange={handleInputChange}
-            />
-            <SearchButton onClick={handleSearch} />
-          </div>
-          <Routes>
-            <Route
-              path="/"
-              element={
-                isLoading ? (
-                  <div className="loader"></div>
-                ) : (
-                  <div>
-                    <PageControl
-                      currentPage={currentPage}
-                      totalPages={totalPages}
-                      onPageChange={setCurrentPage}
-                      onPreviousPage={handlePreviousPage}
-                      onNextPage={handleNextPage}
-                    />
-                    <ResultsComponent
-                      results={results}
-                      currentPage={currentPage}
-                      totalPages={totalPages}
-                      itemsPerPage={itemsPerPage}
-                      handlePageChange={setCurrentPage}
-                      handleItemsPerPageChange={setItemsPerPage}
-                    />
-                  </div>
-                )
-              }
-            />
-          </Routes>
+    <div className="App">
+      <h1>Star Wars Characters</h1>
+      <div className="search-result-container">
+        <div className="search-container">
+          <SearchInput
+            searchTerm={searchTerm}
+            handleInputChange={handleInputChange}
+          />
+          <SearchButton onClick={handleSearch} />
         </div>
+        <PageControl
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+          onPreviousPage={handlePreviousPage}
+          onNextPage={handleNextPage}
+        />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              isLoading ? (
+                <div className="loader"></div>
+              ) : (
+                <div>
+                  <CharacterData results={results} />
+                </div>
+              )
+            }
+          />
+        </Routes>
       </div>
-    </Router>
+    </div>
   );
 };
 
