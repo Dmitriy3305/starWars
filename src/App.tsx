@@ -1,85 +1,76 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import SearchInput from './components/searchInput';
 import SearchButton from './components/searchButton';
-import { State } from './types';
 import ResultsComponent from './components/searchResult';
 import './App.css';
 
-class App extends React.Component<object, Readonly<State>> {
-  constructor(props: object) {
-    super(props);
-    this.state = {
-      isLoading: false,
-      searchTerm: '',
-      results: [],
-    };
-  }
+const App = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [results, setResults] = useState([]);
 
-  componentDidMount() {
+  useEffect(() => {
     const savedSearch = localStorage.getItem('search');
     if (savedSearch !== null) {
-      this.setState({ searchTerm: savedSearch }, () => {
-        this.search();
-      });
+      setSearchTerm(savedSearch);
+      performSearch();
     } else {
-      this.search();
+      performSearch();
     }
-  }
+  }, []);
 
-  handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ searchTerm: e.target.value });
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
   };
 
-  handleSearch = () => {
-    const { searchTerm } = this.state;
+  const handleSearch = () => {
     localStorage.setItem('search', searchTerm);
-    this.search();
+    performSearch();
   };
 
-  search() {
-    const { searchTerm } = this.state;
+  const performSearch = () => {
     let url = 'https://swapi.dev/api/people/';
+    const term = localStorage.getItem('search');
 
-    if (searchTerm.trim() !== '') {
-      url += `?search=${searchTerm}`;
+    if (term?.trim() !== '') {
+      url += `?search=${term}`;
     }
-    this.setState({ isLoading: true });
+    setIsLoading(true);
 
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        this.setState({ results: data.results, isLoading: false });
+        setResults(data.results);
+        setIsLoading(false);
       })
       .catch((error) => {
         console.log('Error:', error);
+        setIsLoading(false);
       });
-  }
+  };
 
-  render() {
-    const { searchTerm, results } = this.state;
-    return (
-      <div className="App">
-        <h1>Star Wars Characters</h1>
-        {this.state.isLoading ? (
-          <div className="loader"></div>
-        ) : (
-          <div className="search-result-container">
-            <div className="search-container">
-              <SearchInput
-                searchTerm={searchTerm}
-                handleInputChange={this.handleInputChange}
-              />
-              <SearchButton onClick={this.handleSearch} />
-            </div>
-
-            <div className="results-container">
-              <ResultsComponent results={results} />
-            </div>
+  return (
+    <div className="App">
+      <h1>Star Wars Characters</h1>
+      {isLoading ? (
+        <div className="loader"></div>
+      ) : (
+        <div className="search-result-container">
+          <div className="search-container">
+            <SearchInput
+              searchTerm={searchTerm}
+              handleInputChange={handleInputChange}
+            />
+            <SearchButton onClick={handleSearch} />
           </div>
-        )}
-      </div>
-    );
-  }
-}
+
+          <div className="results-container">
+            <ResultsComponent results={results} />
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default App;
