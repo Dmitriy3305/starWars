@@ -1,47 +1,61 @@
 import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import SearchInput from './components/searchInput';
 import SearchButton from './components/searchButton';
 import ResultsComponent from './components/searchResult';
 import './App.css';
+import { SearchResult } from './types';
+import PageControl from './components/pageControl';
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState<SearchResult[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
 
   useEffect(() => {
     const savedSearch = localStorage.getItem('search');
     if (savedSearch !== null) {
       setSearchTerm(savedSearch);
-      performSearch();
+      performSearch(savedSearch);
     } else {
-      performSearch();
+      performSearch('');
     }
   }, []);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
     setSearchTerm(e.target.value);
   };
 
   const handleSearch = () => {
     localStorage.setItem('search', searchTerm);
-    performSearch();
+    performSearch(searchTerm);
   };
 
-  const performSearch = () => {
-    let url = 'https://swapi.dev/api/people/';
-    const term = localStorage.getItem('search');
-
-    if (term?.trim() !== '') {
-      url += `?search=${term}`;
-    }
+  const performSearch = (searchTerm: string, page = 1) => {
+    const url = `https://swapi.dev/api/people/?page=${page}&search=${searchTerm}`;
     setIsLoading(true);
+    console.log(page);
 
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        setResults(data.results);
-        setIsLoading(false);
+        if (data.results) {
+          if (page === 1) {
+            setResults(data.results);
+          } else {
+            setResults(data.results);
+          }
+          setCurrentPage(page);
+          setTotalPages(Math.ceil(data.count / itemsPerPage));
+          setIsLoading(false);
+        } else {
+          setIsLoading(false);
+        }
       })
       .catch((error) => {
         console.log('Error:', error);
@@ -49,12 +63,24 @@ const App = () => {
       });
   };
 
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prevPage) => prevPage - 1);
+      performSearch(searchTerm, currentPage - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage((prevPage) => prevPage + 1);
+      performSearch(searchTerm, currentPage + 1);
+    }
+  };
+
   return (
-    <div className="App">
-      <h1>Star Wars Characters</h1>
-      {isLoading ? (
-        <div className="loader"></div>
-      ) : (
+    <Router>
+      <div className="App">
+        <h1>Star Wars Characters</h1>
         <div className="search-result-container">
           <div className="search-container">
             <SearchInput
@@ -63,13 +89,37 @@ const App = () => {
             />
             <SearchButton onClick={handleSearch} />
           </div>
-
-          <div className="results-container">
-            <ResultsComponent results={results} />
-          </div>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                isLoading ? (
+                  <div className="loader"></div>
+                ) : (
+                  <div>
+                    <PageControl
+                      currentPage={currentPage}
+                      totalPages={totalPages}
+                      onPageChange={setCurrentPage}
+                      onPreviousPage={handlePreviousPage}
+                      onNextPage={handleNextPage}
+                    />
+                    <ResultsComponent
+                      results={results}
+                      currentPage={currentPage}
+                      totalPages={totalPages}
+                      itemsPerPage={itemsPerPage}
+                      handlePageChange={setCurrentPage}
+                      handleItemsPerPageChange={setItemsPerPage}
+                    />
+                  </div>
+                )
+              }
+            />
+          </Routes>
         </div>
-      )}
-    </div>
+      </div>
+    </Router>
   );
 };
 
