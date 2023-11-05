@@ -44,6 +44,11 @@ h1 {
   padding: 10px;
   margin-bottom: 10px;
   border-radius: 5px;
+  width: 310px;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .results-item:first-child {
@@ -59,4 +64,24 @@ h1 {
   justify-content: left;
   gap: 10px;
   font-size: 20px;
+}
+
+.results-items {
+  gap: 10vw;
+  display: flex;
+  justify-content:left;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.characters-detail {
+  color: #fdba12;
+  font-weight: bold;
+  background: #222;
+  width: 310px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }

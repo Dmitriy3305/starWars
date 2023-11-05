@@ -22,9 +22,12 @@ const CharacterData = (props: ResultsProps) => {
   return (
     <div className="search-results">
       {results.map((result, index) => (
-        <div key={result.name}>
-          <h1 className="results-item">Name: {result.name}</h1>
-          <button onClick={() => handleShowDetails(index)}>
+        <div key={result.name} className="results-items">
+          <h1 className="results-item">{result.name}</h1>
+          <button
+            className="show-details"
+            onClick={() => handleShowDetails(index)}
+          >
             {selectedDetailIndex === index ? 'hide' : 'show details'}
           </button>
           {isLoading ? (
@@ -34,19 +37,13 @@ const CharacterData = (props: ResultsProps) => {
               {characterData.find(
                 (character) => character.name === result.name
               ) ? (
-                <div>
-                  {result.height && <h2>Height: {result.height}</h2>}
-                  {result.hair_color && (
-                    <h2>Hair color: {result.hair_color}</h2>
-                  )}
-                  {result.skin_color && (
-                    <h2>Skin color: {result.skin_color}</h2>
-                  )}
-                  {result.eye_color && <h2>Eye color: {result.eye_color}</h2>}
-                  {result.birth_year && (
-                    <h2>Birth year: {result.birth_year}</h2>
-                  )}
-                  {result.gender && <h2>Gender: {result.gender}</h2>}
+                <div className="characters-detail">
+                  {result.height && <p>Height: {result.height}</p>}
+                  {result.hair_color && <p>Hair color: {result.hair_color}</p>}
+                  {result.skin_color && <p>Skin color: {result.skin_color}</p>}
+                  {result.eye_color && <p>Eye color: {result.eye_color}</p>}
+                  {result.birth_year && <p>Birth year: {result.birth_year}</p>}
+                  {result.gender && <p>Gender: {result.gender}</p>}
                 </div>
               ) : (
                 <Details
