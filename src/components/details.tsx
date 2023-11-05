@@ -14,7 +14,6 @@ const Details = ({ name, setCharacterData }: DetailsProps) => {
   const encodedName = name.replace(/ /g, '%20');
   useEffect(() => {
     const url = `https://swapi.dev/api/people/?search=${encodedName}`;
-    console.log(url);
     fetch(url)
       .then((response) => response.json())
       .then((data: Data) => {
@@ -26,10 +25,8 @@ const Details = ({ name, setCharacterData }: DetailsProps) => {
             if (character.name === name) {
               return data.results[0];
             }
-            console.log(character);
             return data.results[0];
           });
-          console.log(newData);
           return newData;
         });
       })

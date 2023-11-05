@@ -43,7 +43,6 @@ const App = () => {
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         if (data.results) {
           setResults(data.results);
           setCurrentPage(page);
