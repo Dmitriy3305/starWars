@@ -1,0 +1,62 @@
+@import url(./loader.css);
+@import url(./input.css);
+@import url(./buttons.css);
+
+:root {
+  background: #000;
+  font-family: 'Deathstar';
+}
+
+.App {
+  background: #000;
+  color: #fff;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  color: #fdba12;
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.results-container {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+}
+
+.results-item {
+  background: #000;
+  color: #fff;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.results-item:first-child {
+  color: #fdba12;
+  font-weight: bold;
+  background: #222;
+}
+
+.page-control {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  gap: 10px;
+  font-size: 20px;
+}

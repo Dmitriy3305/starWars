@@ -16,9 +16,13 @@ const PageControl = ({
 
   return (
     <div className="page-control">
-      <button onClick={onPreviousPage}>Previous page;</button>
+      <button className="page-control-btn" onClick={onPreviousPage}>
+        Previous page
+      </button>
       <span>{currentPage}</span>
-      <button onClick={onNextPage}>Next page</button>
+      <button className="page-control-btn" onClick={onNextPage}>
+        Next page
+      </button>
       <span>of</span>
       <span>{totalPages}</span>
     </div>
