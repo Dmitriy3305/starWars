@@ -43,6 +43,7 @@ const App = () => {
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
+        console.log(data);
         if (data.results) {
           setResults(data.results);
           setCurrentPage(page);
@@ -97,9 +98,17 @@ const App = () => {
               isLoading ? (
                 <div className="loader"></div>
               ) : (
-                <div>
-                  <CharacterData results={results} />
-                </div>
+                <CharacterData
+                  results={results}
+                  name={''}
+                  height={0}
+                  mass={0}
+                  hair_color={''}
+                  skin_color={''}
+                  eye_color={''}
+                  birth_year={''}
+                  gender={''}
+                />
               )
             }
           />

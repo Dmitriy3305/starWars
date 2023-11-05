@@ -12,7 +12,8 @@ const PageControl = ({
     if (currentPage > totalPages) {
       onPageChange(totalPages);
     }
-  }, [totalPages]);
+    localStorage.setItem('page', String(currentPage));
+  }, [totalPages, currentPage]);
 
   return (
     <div className="page-control">
