@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
-import { ResultsProps, SearchResult } from '../types';
 import Details from './details';
+import { CharacterDataProps, SearchResult } from '../types';
 
-const CharacterData = (props: ResultsProps) => {
-  const { results } = props;
+const CharacterData: React.FC<CharacterDataProps> = ({ results }) => {
   const [selectedDetailIndex, setSelectedDetailIndex] = useState<number | null>(
     null
   );
   const [isLoading] = useState(false);
-
   const [characterData, setCharacterData] = useState<SearchResult[]>([]);
 
   const handleShowDetails = (index: number) => {

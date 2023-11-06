@@ -97,17 +97,7 @@ const App = () => {
               isLoading ? (
                 <div className="loader"></div>
               ) : (
-                <CharacterData
-                  results={results}
-                  name={''}
-                  height={0}
-                  mass={0}
-                  hair_color={''}
-                  skin_color={''}
-                  eye_color={''}
-                  birth_year={''}
-                  gender={''}
-                />
+                <CharacterData results={results} />
               )
             }
           />

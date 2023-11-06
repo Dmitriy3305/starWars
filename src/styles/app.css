@@ -69,7 +69,7 @@ h1 {
 .results-items {
   gap: 10vw;
   display: flex;
-  justify-content:left;
+  justify-content: left;
   align-items: center;
   flex-wrap: wrap;
 }

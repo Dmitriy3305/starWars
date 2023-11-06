@@ -1,14 +1,5 @@
-import { Dispatch, SetStateAction, useEffect } from 'react';
-import { ResultsProps, SearchResult } from '../types';
-
-interface DetailsProps {
-  name: string;
-  setCharacterData: Dispatch<SetStateAction<SearchResult[]>>;
-}
-
-interface Data {
-  results: ResultsProps[];
-}
+import { useEffect } from 'react';
+import { SearchResult, DetailsProps } from '../types';
 
 const Details = ({ name, setCharacterData }: DetailsProps) => {
   const encodedName = name.replace(/ /g, '%20');
@@ -16,7 +7,7 @@ const Details = ({ name, setCharacterData }: DetailsProps) => {
     const url = `https://swapi.dev/api/people/?search=${encodedName}`;
     fetch(url)
       .then((response) => response.json())
-      .then((data: Data) => {
+      .then((data) => {
         setCharacterData((prevState: SearchResult[]) => {
           if (prevState.length === 0) {
             return data.results;
