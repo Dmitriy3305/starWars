@@ -6,6 +6,7 @@ import CharacterData from './components/characterData';
 import './styles/app.css';
 import { SearchResult } from './types';
 import PageControl from './components/pageControl';
+import GlobalContext from './components/globalContext';
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -73,37 +74,36 @@ const App = () => {
   };
 
   return (
-    <div className="App">
-      <h1>Star Wars Characters</h1>
-      <div className="search-result-container">
-        <div className="search-container">
-          <SearchInput
-            searchTerm={searchTerm}
-            handleInputChange={handleInputChange}
+    <GlobalContext.Provider value={{ searchTerm }}>
+      <div className="App">
+        <h1>Star Wars Characters</h1>
+        <div className="search-result-container">
+          <div className="search-container">
+            <SearchInput handleInputChange={handleInputChange} />
+            <SearchButton onClick={handleSearch} />
+          </div>
+          <PageControl
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={setCurrentPage}
+            onPreviousPage={handlePreviousPage}
+            onNextPage={handleNextPage}
           />
-          <SearchButton onClick={handleSearch} />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                isLoading ? (
+                  <div className="loader"></div>
+                ) : (
+                  <CharacterData results={results} />
+                )
+              }
+            />
+          </Routes>
         </div>
-        <PageControl
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={setCurrentPage}
-          onPreviousPage={handlePreviousPage}
-          onNextPage={handleNextPage}
-        />
-        <Routes>
-          <Route
-            path="/"
-            element={
-              isLoading ? (
-                <div className="loader"></div>
-              ) : (
-                <CharacterData results={results} />
-              )
-            }
-          />
-        </Routes>
       </div>
-    </div>
+    </GlobalContext.Provider>
   );
 };
 
