@@ -74,7 +74,7 @@ const App = () => {
   };
 
   return (
-    <GlobalContext.Provider value={{ searchTerm }}>
+    <GlobalContext.Provider value={{ searchTerm, results }}>
       <div className="App">
         <h1>Star Wars Characters</h1>
         <div className="search-result-container">
@@ -93,11 +93,7 @@ const App = () => {
             <Route
               path="/"
               element={
-                isLoading ? (
-                  <div className="loader"></div>
-                ) : (
-                  <CharacterData results={results} />
-                )
+                isLoading ? <div className="loader"></div> : <CharacterData />
               }
             />
           </Routes>

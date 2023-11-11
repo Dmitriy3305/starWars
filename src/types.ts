@@ -38,6 +38,7 @@ export interface DetailsProps {
   setCharacterData: Dispatch<SetStateAction<SearchResult[]>>;
 }
 
-export interface CharacterDataProps {
+export interface GlobalContextProps {
+  searchTerm: string;
   results: SearchResult[];
 }

@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Details from './details';
-import { CharacterDataProps, SearchResult } from '../types';
+import { SearchResult } from '../types';
+import GlobalContext from './globalContext';
 
-const CharacterData: React.FC<CharacterDataProps> = ({ results }) => {
+const CharacterData: React.FC = () => {
   const [selectedDetailIndex, setSelectedDetailIndex] = useState<number | null>(
     null
   );
   const [isLoading] = useState(false);
   const [characterData, setCharacterData] = useState<SearchResult[]>([]);
+
+  const context = useContext(GlobalContext);
 
   const handleShowDetails = (index: number) => {
     if (selectedDetailIndex === index) {
@@ -19,7 +22,7 @@ const CharacterData: React.FC<CharacterDataProps> = ({ results }) => {
 
   return (
     <div className="search-results">
-      {results.map((result, index) => (
+      {context.results.map((result, index) => (
         <div key={result.name} className="results-items">
           <h1 className="results-item">{result.name}</h1>
           <div className="details-container">
