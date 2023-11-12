@@ -12,6 +12,7 @@
     "*.(ts|tsx|jsx)": [
       "npx prettier --write",
       "npx eslint --fix",
+      "npm run test",
       "git add"
     ]
   },
@@ -22,7 +23,7 @@
     "preview": "vite preview",
     "prepare": "husky install",
     "format": "prettier . --write",
-    "test": "vitest"
+    "test": "vitest --watch=false"
   },
   "dependencies": {
     "@vitest/spy": "^0.34.6",
