@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { SearchResult, DetailsProps } from '../types';
+import { SearchResult, DetailsProps } from '../../types';
 
 const Details = ({ name, setCharacterData }: DetailsProps) => {
   const encodedName = name.replace(/ /g, '%20');

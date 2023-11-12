@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import Details from '../details';
+import Details from '../details/details';
 import { SearchResult } from '../../types';
 import GlobalContext from '../globalContext';
 

@@ -14,6 +14,7 @@ const mockResults = [
     height: '172',
     hair_color: 'blond',
     skin_color: 'fair',
+    eye_color: 'yellow',
     birth_year: '19BBY',
     gender: 'male',
   },

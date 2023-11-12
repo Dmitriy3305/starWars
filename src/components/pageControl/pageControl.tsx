@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { PageControlProps } from '../types';
+import { PageControlProps } from '../../types';
 
 const PageControl = ({
   currentPage,
