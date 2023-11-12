@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import SearchInput from '../components/searchInput';
 import SearchButton from '../components/searchButton';
 import CharacterData from '../components/characterData/characterData';
-import './styles/app.css';
+import '../styles/app.css';
 import { SearchResult } from '../types';
 import PageControl from '../components/pageControl/pageControl';
 import GlobalContext from '../components/globalContext';
