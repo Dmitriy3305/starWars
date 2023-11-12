@@ -25,6 +25,7 @@
     "test": "vitest"
   },
   "dependencies": {
+    "@vitest/spy": "^0.34.6",
     "isomorphic-fetch": "^3.0.0",
     "jest-fetch-mock": "^3.0.3",
     "react": "^18.2.0",

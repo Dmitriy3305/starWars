@@ -4,9 +4,11 @@ import {
   screen,
   fireEvent,
   RenderResult,
+  act,
 } from '@testing-library/react';
 
-import CharacterData from './characterData';
+import Details from './details';
+import 'isomorphic-fetch';
 
 const mockResults = [
   {
@@ -27,13 +29,21 @@ const mockContext = {
 type Queries = typeof import('@testing-library/dom/types/queries');
 
 const setup = (): RenderResult<Queries, HTMLElement> => {
-  const utils = render(<CharacterData />, {
-    wrapper: ({ children }) => (
-      <MockGlobalContext.Provider value={mockContext}>
-        {children}
-      </MockGlobalContext.Provider>
-    ),
-  });
+  const utils = render(
+    <Details
+      name={''}
+      setCharacterData={function (): void {
+        throw new Error('Function not implemented.');
+      }}
+    />,
+    {
+      wrapper: ({ children }) => (
+        <MockGlobalContext.Provider value={mockContext}>
+          {children}
+        </MockGlobalContext.Provider>
+      ),
+    }
+  );
 
   return {
     ...utils,
@@ -77,4 +87,20 @@ test('render loader when loading details', () => {
 
   const updatedLoader = screen.queryAllByTestId('loader');
   expect(updatedLoader.length).toBe(showDetailsButtons.length);
+});
+
+test('should log error when fetch fails', async () => {
+  const setCharacterData = vi.fn();
+  const error = new Error('Fetch Error');
+
+  vi.spyOn(global, 'fetch').mockImplementation(() => Promise.reject(error));
+  vi.spyOn(console, 'log').mockImplementation(() => {});
+
+  await act(async () => {
+    render(
+      <Details name="Luke Skywalker" setCharacterData={setCharacterData} />
+    );
+  });
+
+  expect(console.log).toHaveBeenCalledWith('Error:', error);
 });
