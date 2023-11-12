@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
-import Details from './details';
-import { SearchResult } from '../types';
-import GlobalContext from './globalContext';
+import Details from '../details';
+import { SearchResult } from '../../types';
+import GlobalContext from '../globalContext';
 
 const CharacterData: React.FC = () => {
   const [selectedDetailIndex, setSelectedDetailIndex] = useState<number | null>(
