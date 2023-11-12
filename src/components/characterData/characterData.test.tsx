@@ -34,5 +34,9 @@ describe('CharacterData', () => {
     const showDetailsButton = getByText('show details');
     fireEvent.click(showDetailsButton);
     expect(getByText('hide')).toBeInTheDocument();
+    const loader = getByText('Loading...');
+    expect(loader).toBeInTheDocument();
+    fireEvent.click(showDetailsButton);
+    expect(getByText('show details')).toBeInTheDocument();
   });
 });
