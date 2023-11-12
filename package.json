@@ -23,7 +23,8 @@
     "preview": "vite preview",
     "prepare": "husky install",
     "format": "prettier . --write",
-    "test": "vitest --watch=false"
+    "test": "vitest --watch=false",
+    "test-coverage": "vitest --coverage"
   },
   "dependencies": {
     "@vitest/spy": "^0.34.6",

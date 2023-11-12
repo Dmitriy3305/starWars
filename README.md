@@ -34,4 +34,4 @@
   - To run **Vitest** use<br>
     `npm run test`
   - To run **Vitest: coverage** use<br>
-    `npm run test -- --coverage`<br>
+    `npm run test-coverage`<br>
