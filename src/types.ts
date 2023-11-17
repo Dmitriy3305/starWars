@@ -18,7 +18,6 @@ export interface State {
 }
 
 export interface SearchInputProps {
-  searchTerm: string;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -39,6 +38,7 @@ export interface DetailsProps {
   setCharacterData: Dispatch<SetStateAction<SearchResult[]>>;
 }
 
-export interface CharacterDataProps {
+export interface GlobalContextProps {
+  searchTerm: string;
   results: SearchResult[];
 }

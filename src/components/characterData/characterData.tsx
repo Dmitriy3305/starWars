@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
-import Details from './details';
-import { CharacterDataProps, SearchResult } from '../types';
+import React, { useContext, useState } from 'react';
+import Details from '../details/details';
+import { SearchResult } from '../../types';
+import GlobalContext from '../globalContext';
 
-const CharacterData: React.FC<CharacterDataProps> = ({ results }) => {
+const CharacterData: React.FC = () => {
   const [selectedDetailIndex, setSelectedDetailIndex] = useState<number | null>(
     null
   );
   const [isLoading] = useState(false);
   const [characterData, setCharacterData] = useState<SearchResult[]>([]);
+
+  const context = useContext(GlobalContext);
 
   const handleShowDetails = (index: number) => {
     if (selectedDetailIndex === index) {
@@ -19,9 +22,9 @@ const CharacterData: React.FC<CharacterDataProps> = ({ results }) => {
 
   return (
     <div className="search-results">
-      {results.map((result, index) => (
+      {context.results.map((result, index) => (
         <div key={result.name} className="results-items">
-          <h1 className="results-item">{result.name}</h1>
+          <h2 className="results-name">{result.name}</h2>
           <div className="details-container">
             <button
               className="show-details"
@@ -37,18 +40,28 @@ const CharacterData: React.FC<CharacterDataProps> = ({ results }) => {
                   (character) => character.name === result.name
                 ) ? (
                   <div className="characters-detail">
-                    {result.height && <p>Height: {result.height}</p>}
+                    {result.height && (
+                      <p className="results-item">Height: {result.height}</p>
+                    )}
                     {result.hair_color && (
-                      <p>Hair color: {result.hair_color}</p>
+                      <p className="results-item">
+                        Hair color: {result.hair_color}
+                      </p>
                     )}
                     {result.skin_color && (
-                      <p>Skin color: {result.skin_color}</p>
+                      <p className="results-item">
+                        Skin color: {result.skin_color}
+                      </p>
                     )}
                     {result.eye_color && <p>Eye color: {result.eye_color}</p>}
                     {result.birth_year && (
-                      <p>Birth year: {result.birth_year}</p>
+                      <p className="results-item">
+                        Birth year: {result.birth_year}
+                      </p>
                     )}
-                    {result.gender && <p>Gender: {result.gender}</p>}
+                    {result.gender && (
+                      <p className="results-item">Gender: {result.gender}</p>
+                    )}
                   </div>
                 ) : (
                   <Details

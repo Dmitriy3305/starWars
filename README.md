@@ -29,3 +29,9 @@
     `npm run format`
   - To run **ESLint** use<br>
     `npm run lint`<br>
+- ## Vitest
+  Provide test validation of your code using these commands:
+  - To run **Vitest** use<br>
+    `npm run test`
+  - To run **Vitest: coverage** use<br>
+    `npm run test-coverage`<br>
