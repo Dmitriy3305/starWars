@@ -1,16 +1,20 @@
-import { useContext } from 'react';
-import GlobalContext from './globalContext';
-import { SearchInputProps } from '../types';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSearchTerm } from '../reducers/searchReducer';
+import { RootState } from '../reducers/rootReducer';
 
-const SearchInput = (props: SearchInputProps) => {
-  const { handleInputChange } = props;
-  const context = useContext(GlobalContext);
+const SearchInput = () => {
+  const searchTerm = useSelector((state: RootState) => state.search);
+  const dispatch = useDispatch();
+
+  const handleInputChange = (searchTerm: string) => {
+    dispatch(setSearchTerm(searchTerm));
+  };
 
   return (
     <input
       type="text"
-      value={context.searchTerm}
-      onChange={handleInputChange}
+      value={searchTerm}
+      onChange={(e) => handleInputChange(e.target.value)}
       placeholder="Search term"
       className="search-input"
     />

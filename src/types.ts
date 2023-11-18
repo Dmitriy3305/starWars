@@ -18,7 +18,8 @@ export interface State {
 }
 
 export interface SearchInputProps {
-  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleInputChange: (value: string) => void;
+  searchTerm: string;
 }
 
 export interface SearchButtonProps {

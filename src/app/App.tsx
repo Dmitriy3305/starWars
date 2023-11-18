@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import SearchInput from '../components/searchInput';
 import SearchButton from '../components/searchButton';
@@ -8,33 +8,27 @@ import { SearchResult } from '../types';
 import PageControl from '../components/pageControl/pageControl';
 import GlobalContext from '../components/globalContext';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { RootState } from '../reducers/rootReducer';
+import { useSelector } from 'react-redux';
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
   const [results, setResults] = useState<SearchResult[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [itemsPerPage] = useState(10);
+  const searchTerm = useSelector((state: RootState) => state.search);
 
   useEffect(() => {
     const savedSearch = localStorage.getItem('search');
     if (savedSearch !== null) {
-      setSearchTerm(savedSearch);
       performSearch(savedSearch);
     } else {
       performSearch('');
     }
   }, []);
 
-  const handleInputChange = (e: {
-    target: { value: React.SetStateAction<string> };
-  }) => {
-    setSearchTerm(e.target.value);
-  };
-
   const handleSearch = () => {
-    localStorage.setItem('search', searchTerm);
     performSearch(searchTerm);
   };
 
@@ -81,7 +75,7 @@ const App = () => {
           <h1>Star Wars Characters</h1>
           <div className="search-result-container">
             <div className="search-container">
-              <SearchInput handleInputChange={handleInputChange} />
+              <SearchInput />
               <SearchButton onClick={handleSearch} />
             </div>
             <PageControl
