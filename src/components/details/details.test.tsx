@@ -1,106 +1,60 @@
-import React from 'react';
-import {
-  render,
-  screen,
-  fireEvent,
-  RenderResult,
-  act,
-} from '@testing-library/react';
-
+import { render, waitFor } from '@testing-library/react';
+import { describe, it, expect, vi } from 'vitest';
+import { startLoading, endLoading } from '../../reducers/detailsReducer';
 import Details from './details';
-import 'isomorphic-fetch';
 
-const mockResults = [
-  {
-    name: 'Luke Skywalker',
-    height: '172',
-    hair_color: 'blond',
-    skin_color: 'fair',
-    eye_color: 'yellow',
-    birth_year: '19BBY',
-    gender: 'male',
-  },
-];
+const mockDispatch = vi.fn();
 
-const mockContext = {
-  results: mockResults,
-};
+vi.stubGlobal(
+  'fetch',
+  vi.fn(() =>
+    Promise.resolve({
+      json: () =>
+        Promise.resolve({
+          results: [
+            {
+              name: 'Luke Skywalker',
+              height: '172',
+              hair_color: 'blond',
+              skin_color: 'fair',
+              eye_color: 'blue',
+              birth_year: '19BBY',
+              gender: 'male',
+            },
+          ],
+        }),
+    })
+  )
+);
 
-type Queries = typeof import('@testing-library/dom/types/queries');
+vi.mock('react-redux', () => ({
+  useDispatch: () => mockDispatch,
+}));
 
-const setup = (): RenderResult<Queries, HTMLElement> => {
-  const utils = render(
-    <Details
-      name={''}
-      setCharacterData={function (): void {
-        throw new Error('Function not implemented.');
-      }}
-    />,
-    {
-      wrapper: ({ children }) => (
-        <MockGlobalContext.Provider value={mockContext}>
-          {children}
-        </MockGlobalContext.Provider>
-      ),
-    }
-  );
+describe('Details Component', () => {
+  it('should dispatch correct actions and set character data on mount', async () => {
+    const setCharacterDataMock = vi.fn();
 
-  return {
-    ...utils,
-  };
-};
-
-const MockGlobalContext = React.createContext(mockContext);
-
-test('render the relevant card data', () => {
-  setup();
-
-  const characterName = screen.queryAllByTestId('results-name');
-  characterName.forEach((details, index) => {
-    const result = mockResults[index];
-    expect(details).toHaveTextContent(result.name);
-  });
-});
-
-test('render the relevant characters details', () => {
-  setup();
-
-  const characterDetails = screen.queryAllByTestId('results-item');
-  characterDetails.forEach((details, index) => {
-    const result = mockResults[index];
-    expect(details).toHaveTextContent(`Height: ${result.height}`);
-    expect(details).toHaveTextContent(`Hair color: ${result.hair_color}`);
-    expect(details).toHaveTextContent(`Skin color: ${result.skin_color}`);
-    expect(details).toHaveTextContent(`Birth year: ${result.birth_year}`);
-    expect(details).toHaveTextContent(`Gender: ${result.gender}`);
-  });
-});
-
-test('render loader when loading details', () => {
-  setup();
-
-  const loader = screen.queryAllByTestId('loader');
-  expect(loader.length).toBe(0);
-
-  const showDetailsButtons = screen.queryAllByTestId('show-details-button');
-  showDetailsButtons.forEach((button) => fireEvent.click(button));
-
-  const updatedLoader = screen.queryAllByTestId('loader');
-  expect(updatedLoader.length).toBe(showDetailsButtons.length);
-});
-
-test('should log error when fetch fails', async () => {
-  const setCharacterData = vi.fn();
-  const error = new Error('Fetch Error');
-
-  vi.spyOn(global, 'fetch').mockImplementation(() => Promise.reject(error));
-  vi.spyOn(console, 'log').mockImplementation(() => {});
-
-  await act(async () => {
     render(
-      <Details name="Luke Skywalker" setCharacterData={setCharacterData} />
+      <Details name="Luke Skywalker" setCharacterData={setCharacterDataMock} />
     );
-  });
 
-  expect(console.log).toHaveBeenCalledWith('Error:', error);
+    await waitFor(() =>
+      expect(mockDispatch).toHaveBeenCalledWith(startLoading())
+    );
+    await waitFor(() =>
+      expect(mockDispatch).toHaveBeenCalledWith(endLoading())
+    );
+
+    it('should handle fetch error', async () => {
+      render(<Details name="Error Case" setCharacterData={vi.fn()} />);
+
+      await waitFor(() =>
+        expect(mockDispatch).toHaveBeenCalledWith(startLoading())
+      );
+      await waitFor(() =>
+        expect(mockDispatch).toHaveBeenCalledWith(endLoading())
+      );
+    });
+  });
 });

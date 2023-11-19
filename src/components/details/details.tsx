@@ -5,7 +5,7 @@ import {
   setSearchResults,
   startLoading,
   endLoading,
-} from '../../reducers/detailsReduser';
+} from '../../reducers/detailsReducer';
 
 const Details = ({ name, setCharacterData }: DetailsProps) => {
   const dispatch = useDispatch();

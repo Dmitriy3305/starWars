@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { setSearchTerm } from '../reducers/searchReducer';
-import { RootState } from '../reducers/rootReducer';
-
+import { setSearchTerm } from '../../reducers/searchReducer';
+import { RootState } from '../../reducers/rootReducer';
 const SearchInput = () => {
   const searchTerm = useSelector((state: RootState) => state.search);
   const dispatch = useDispatch();

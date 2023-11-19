@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import SearchInput from '../components/searchInput';
+import SearchInput from '../components/searchInput/searchInput';
 import SearchButton from '../components/searchButton';
 import CharacterData from '../components/characterData/characterData';
 import '../styles/app.css';
