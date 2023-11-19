@@ -43,3 +43,8 @@ export interface GlobalContextProps {
   searchTerm: string;
   results: SearchResult[];
 }
+
+export interface SearchState {
+  results: SearchResult[];
+  isLoaging: boolean;
+}

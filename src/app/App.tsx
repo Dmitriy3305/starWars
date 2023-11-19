@@ -8,7 +8,11 @@ import PageControl from '../components/pageControl/pageControl';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { RootState } from '../reducers/rootReducer';
 import { useSelector } from 'react-redux';
-import { setSearchResults } from '../reducers/dataReducer';
+import {
+  setSearchResults,
+  startLoading,
+  endLoading,
+} from '../reducers/dataReducer';
 import { useDispatch } from 'react-redux';
 
 const App = () => {
@@ -36,6 +40,7 @@ const App = () => {
   const performSearch = (searchTerm: string, page = 1) => {
     const url = `https://swapi.dev/api/people/?page=${page}&search=${searchTerm}`;
     setIsLoading(true);
+    dispatch(startLoading());
 
     fetch(url)
       .then((response) => response.json())
@@ -52,6 +57,9 @@ const App = () => {
       .catch((error) => {
         console.log('Error:', error);
         setIsLoading(false);
+      })
+      .finally(() => {
+        dispatch(endLoading());
       });
   };
 
