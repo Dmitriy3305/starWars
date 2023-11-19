@@ -1,7 +1,8 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import Details from '../details/details';
 import { SearchResult } from '../../types';
-import GlobalContext from '../globalContext';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../reducers/rootReducer';
 
 const CharacterData: React.FC = () => {
   const [selectedDetailIndex, setSelectedDetailIndex] = useState<number | null>(
@@ -10,7 +11,7 @@ const CharacterData: React.FC = () => {
   const [isLoading] = useState(false);
   const [characterData, setCharacterData] = useState<SearchResult[]>([]);
 
-  const context = useContext(GlobalContext);
+  const dataCharacters = useSelector((state: RootState) => state.data);
 
   const handleShowDetails = (index: number) => {
     if (selectedDetailIndex === index) {
@@ -22,7 +23,7 @@ const CharacterData: React.FC = () => {
 
   return (
     <div className="search-results">
-      {context.results.map((result, index) => (
+      {dataCharacters.results.map((result, index) => (
         <div key={result.name} className="results-items">
           <h2 className="results-name">{result.name}</h2>
           <div className="details-container">
