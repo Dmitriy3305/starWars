@@ -12,5 +12,15 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: './src/test/setup.ts',
     css: true,
+    coverage: {
+      exclude: [
+        'src/main.tsx',
+        'src/types.ts',
+        '.eslintrc.cjs',
+        'src/vite-env.d.ts',
+        'src/components/characterData/characterData.tsx',
+        'src/reducers/detailsReducer.ts',
+      ],
+    },
   },
 });

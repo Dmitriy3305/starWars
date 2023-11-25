@@ -18,7 +18,8 @@ export interface State {
 }
 
 export interface SearchInputProps {
-  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleInputChange: (value: string) => void;
+  searchTerm: string;
 }
 
 export interface SearchButtonProps {
@@ -41,4 +42,9 @@ export interface DetailsProps {
 export interface GlobalContextProps {
   searchTerm: string;
   results: SearchResult[];
+}
+
+export interface SearchState {
+  results: SearchResult[];
+  isLoaging: boolean;
 }
