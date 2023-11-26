@@ -18,7 +18,7 @@
 - ## Dev server
   `npm run dev`<br>
 - ## Project build
-  ```npm run build```
+  `npm run build`
   **Note:** Build output goes in `dist` folder
 - ## Code formatting
   Ensure uniforming your code style using these commands:
