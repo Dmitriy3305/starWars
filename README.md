@@ -1,4 +1,4 @@
-# App Star Wars
+# App React-forms
 
 # Getting started
 
@@ -15,23 +15,14 @@
 
 # Avaliable scripts
 
-- ## Initializing
-  To initialize **Husky** git hooks run <br>
-  `npm run prepare`
 - ## Dev server
   `npm run dev`<br>
 - ## Project build
-      ```npm run build```
+  ```npm run build```
   **Note:** Build output goes in `dist` folder
 - ## Code formatting
   Ensure uniforming your code style using these commands:
   - To run **Prettier** use<br>
-    `npm run format`
+    `npm run fix`
   - To run **ESLint** use<br>
     `npm run lint`<br>
-- ## Vitest
-  Provide test validation of your code using these commands:
-  - To run **Vitest** use<br>
-    `npm run test`
-  - To run **Vitest: coverage** use<br>
-    `npm run test-coverage`<br>
