@@ -1,4 +1,4 @@
-import React, { FC, useRef } from 'react';
+import React, { FC } from 'react';
 import styles from './uncontrolledComponent.module.css';
 import LabelName from './labels/labelName/labelName';
 import LabelAge from './labels/labelAge/labelAge';
