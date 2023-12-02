@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useEffect, useRef } from 'react';
+import { ChangeEvent, FC, useRef } from 'react';
 import styles from './labelAge.module.css';
 import { useDispatch } from 'react-redux';
 import { setAgeReducer } from '../../../../reducers/uncontrolled/ageReduser';

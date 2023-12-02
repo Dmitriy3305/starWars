@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const passwordReducer = createSlice({
   name: 'password',
   initialState: {
-    value: ' ',
+    value: null,
   },
   reducers: {
     setPasswordReducer: (state, action) => {
