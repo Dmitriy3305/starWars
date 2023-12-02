@@ -5,7 +5,7 @@ import LabelAge from './labels/labelAge/labelAge';
 import LabelEmail from './labels/LabelEmail/labelEmail';
 import LabelsPassword from './labels/labelsPassword/labelsPassword';
 import LabelGender from './labels/LabelGender/labelGender';
-import LabelTc from './labels/labelTc/labelsTC';
+import LabelTc from './labels/labelTc/labelsTc';
 import LabelUpload from './labels/LabelUpload/labelUpload';
 import LabelCountry from './labels/labelCountry/labelCountry';
 
