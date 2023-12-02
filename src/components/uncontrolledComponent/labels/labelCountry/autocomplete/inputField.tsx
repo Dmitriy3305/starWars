@@ -8,6 +8,7 @@ interface InputFieldProps {
 const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
   ({ onChange }, ref) => (
     <input
+      name="country"
       type="text"
       ref={ref}
       onChange={onChange}

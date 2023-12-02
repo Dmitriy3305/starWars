@@ -8,12 +8,20 @@ const LabelUpload: FC = () => {
   const dispatch = useDispatch();
   const handleUploadChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files ? event.target.files[0] : null;
-    dispatch(setUploadReducer(file));
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = function () {
+        const base64String = reader.result as string;
+        dispatch(setUploadReducer(base64String));
+      };
+      reader.readAsDataURL(file);
+    }
   };
   return (
     <label htmlFor="upload" className={styles.label}>
       Upload picture:
       <input
+        name="upload"
         type="file"
         ref={inputUpload}
         id="upload"

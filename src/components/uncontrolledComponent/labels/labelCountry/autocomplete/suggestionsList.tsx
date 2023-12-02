@@ -1,6 +1,4 @@
 import styles from '../labelCountry.module.css';
-import { useDispatch } from 'react-redux';
-import { setCountryReducer } from '../../../../../reducers/uncontrolled/countryReduser';
 
 interface SuggestionsListProps {
   suggestions: string[];
@@ -11,9 +9,7 @@ const SuggestionsList: React.FC<SuggestionsListProps> = ({
   suggestions,
   onSelect,
 }) => {
-  const dispatch = useDispatch();
   const handleSelect = (suggestion: string) => {
-    dispatch(setCountryReducer(suggestion));
     onSelect(suggestion);
   };
 
