@@ -1,0 +1,7 @@
+.label {
+  display: flex;
+  justify-content: left;
+  padding-top: 20px;
+  gap: 5px;
+  width: 200px;
+}

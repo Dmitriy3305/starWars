@@ -3,10 +3,10 @@ import styles from './uncontrolledComponent.module.css';
 import LabelName from './labels/labelName/labelName';
 import LabelAge from './labels/labelAge/labelAge';
 import LabelEmail from './labels/LabelEmail/labelEmail';
-import LabelsPasswords from './labels/labelsPasswords/labelsPasswords';
+import LabelsPassword from './labels/labelsPassword/labelsPassword';
 import LabelGender from './labels/LabelGender/labelGender';
 import LabelTC from './labels/labelTC/labelsTC';
-import LabelUpload from './labels/LabelUpload/labelsUpload';
+import LabelUpload from './labels/LabelUpload/labelUpload';
 import LabelCountry from './labels/labelCountry/labelCountry';
 
 const UncontrolledComponent: FC = () => {
@@ -19,7 +19,7 @@ const UncontrolledComponent: FC = () => {
       <LabelName />
       <LabelAge />
       <LabelEmail />
-      <LabelsPasswords />
+      <LabelsPassword />
       <LabelGender />
       <LabelTC />
       <LabelUpload />

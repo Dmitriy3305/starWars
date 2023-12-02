@@ -8,10 +8,10 @@ const Navbar = () => {
         Main
       </NavLink>
       <NavLink className={styles.link} to="/controlled-component">
-        Controlled component
+        Controlled
       </NavLink>
       <NavLink className={styles.link} to="/uncontrolled-component">
-        Uncontrolled component
+        Uncontrolled
       </NavLink>
     </nav>
   );

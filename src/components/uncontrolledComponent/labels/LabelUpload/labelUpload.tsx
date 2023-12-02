@@ -1,5 +1,5 @@
 import { FC, useRef } from 'react';
-import styles from '../../uncontrolledComponent.module.css';
+import styles from './labelsUpload.module.css';
 
 const LabelUpload: FC = () => {
   const inputUpload = useRef<HTMLInputElement>(null);

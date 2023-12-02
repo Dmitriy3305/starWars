@@ -1,5 +1,5 @@
 import { FC, useRef } from 'react';
-import styles from '../../uncontrolledComponent.module.css';
+import styles from './labelsPassword.module.css';
 
 const LabelsPasswords: FC = () => {
   const inputPassword = useRef<HTMLInputElement>(null);

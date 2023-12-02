@@ -1,15 +1,34 @@
 import { FC, useRef } from 'react';
-import styles from '../../uncontrolledComponent.module.css';
+import styles from './labelGender.module.css';
 
 const LabelGender: FC = () => {
-  const inputGender = useRef<HTMLInputElement>(null);
+  const maleInputRef = useRef<HTMLInputElement>(null);
+  const femaleInputRef = useRef<HTMLInputElement>(null);
+
   return (
-    <label htmlFor="gender" className={styles.label}>
+    <div className={styles.wrapper}>
       Gender:
-      <span>Male</span>
-      <input type="checkbox" ref={inputGender} id="gender" />
-      <span>Female</span>
-    </label>
+      <label htmlFor="gender" className={styles.label}>
+        <input
+          type="radio"
+          name="gender"
+          value="male"
+          ref={maleInputRef}
+          className={styles.radioInput}
+        />
+        Male
+      </label>
+      <label htmlFor="gender" className={styles.label}>
+        <input
+          type="radio"
+          name="gender"
+          value="female"
+          ref={femaleInputRef}
+          className={styles.radioInput}
+        />
+        Female
+      </label>
+    </div>
   );
 };
 

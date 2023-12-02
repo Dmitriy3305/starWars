@@ -1,5 +1,5 @@
 import { FC, useRef } from 'react';
-import styles from '../../uncontrolledComponent.module.css';
+import styles from './labelAge.module.css';
 
 const LabeAge: FC = () => {
   const inputAge = useRef<HTMLInputElement>(null);
