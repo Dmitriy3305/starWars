@@ -38,7 +38,7 @@ const formSchema = Yup.object({
   gender: Yup.string()
     .required('Gender is required')
     .oneOf(['male', 'female', 'other'], 'Invalid gender'),
-  upload: Yup.mixed().required('Image is required'),
+  upload: Yup.mixed().required('Image required, jpeg/png, size 200x200'),
   country: Yup.string().required('Country is required'),
 });
 

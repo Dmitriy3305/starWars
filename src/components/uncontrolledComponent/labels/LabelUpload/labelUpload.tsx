@@ -14,7 +14,6 @@ const LabelUpload: FC<Props> = ({ error }) => {
     const file = event.target.files ? event.target.files[0] : null;
     if (file) {
       if (!['image/jpeg', 'image/png'].includes(file.type)) {
-        alert('Допустимые расширения - JPEG и PNG');
         return;
       }
       const image = new Image();
