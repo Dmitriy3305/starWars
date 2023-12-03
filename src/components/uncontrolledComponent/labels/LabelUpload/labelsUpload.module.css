@@ -3,7 +3,14 @@
   flex-direction: column;
   align-items: start;
   justify-content: center;
-  padding-top: 20px;
   gap: 5px;
   width: 200px;
+}
+.error {
+  display: flex;
+  text-align: left;
+  font-size: 10px;
+  color: red;
+  max-width: 177px;
+  height: 20px;
 }

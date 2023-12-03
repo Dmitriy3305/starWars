@@ -2,7 +2,6 @@
   display: flex;
   align-items: center;
   justify-content: left;
-  padding-top: 20px;
   width: 200px;
 }
 
@@ -11,4 +10,16 @@
   align-items: center;
   justify-content: center;
   gap: 5px;
+}
+.error {
+  display: flex;
+  text-align: left;
+  font-size: 10px;
+  color: red;
+  max-width: 177px;
+  height: 20px;
+}
+.wrapper-flex {
+  display: flex;
+  flex-direction: column;
 }

@@ -3,20 +3,38 @@ import styles from './labelsUpload.module.css';
 import { useDispatch } from 'react-redux';
 import { setUploadReducer } from '../../../../reducers/uncontrolled/uploadReduser';
 
-const LabelUpload: FC = () => {
+type Props = {
+  error: string | undefined;
+};
+
+const LabelUpload: FC<Props> = ({ error }) => {
   const inputUpload = useRef<HTMLInputElement>(null);
   const dispatch = useDispatch();
   const handleUploadChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files ? event.target.files[0] : null;
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = function () {
-        const base64String = reader.result as string;
-        dispatch(setUploadReducer(base64String));
+      if (!['image/jpeg', 'image/png'].includes(file.type)) {
+        alert('Допустимые расширения - JPEG и PNG');
+        return;
+      }
+      const image = new Image();
+      image.src = URL.createObjectURL(file);
+      image.onload = function () {
+        if (image.width !== 200 || image.height !== 200) {
+          alert('Размер изображения должен быть 200x200 пикселей');
+          return;
+        } else {
+          const reader = new FileReader();
+          reader.onloadend = function () {
+            const base64String = reader.result as string;
+            dispatch(setUploadReducer(base64String));
+          };
+          reader.readAsDataURL(file);
+        }
       };
-      reader.readAsDataURL(file);
     }
   };
+
   return (
     <label htmlFor="upload" className={styles.label}>
       Upload picture:
@@ -27,6 +45,12 @@ const LabelUpload: FC = () => {
         id="upload"
         onChange={handleUploadChange}
       />
+      <span
+        className={styles.error}
+        style={{ visibility: error ? 'visible' : 'hidden' }}
+      >
+        {error}
+      </span>
     </label>
   );
 };
