@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
-import searchReducer from './searchReducer';
-import dataReducer from './dataReducer';
-import detailsReduser from './detailsReducer';
+import countriesReducer from '../reducers/countriesReduser';
+import unconrolledReducer from './uncontrolled/uncotrolledReducer';
+import controlledReducer from './controlled/controlledReducer';
 
 const rootReducer = combineReducers({
-  search: searchReducer,
-  data: dataReducer,
-  details: detailsReduser,
+  countries: countriesReducer,
+  unconrolled: unconrolledReducer,
+  controlled: controlledReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
