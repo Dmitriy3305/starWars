@@ -61,7 +61,6 @@ const UncontrolledComponent: FC = () => {
           {} as Errors
         );
         setErrors(formattedErrors);
-        console.log(formattedErrors);
       });
   }
 

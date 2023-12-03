@@ -11,7 +11,6 @@ type Props = {
 
 const LabeCountry: FC<Props> = ({ error }) => {
   const dispatch = useDispatch();
-  console.log(error);
   useEffect(() => {
     dispatch(setCountriesReducer(countries));
   }, [dispatch]);

@@ -7,7 +7,6 @@ type Props = {
 
 const LabelName: FC<Props> = ({ error }) => {
   const inputName = useRef<HTMLInputElement>(null);
-  console.log(error, inputName.current?.value);
   return (
     <label htmlFor="name" className={styles.label}>
       Name:
