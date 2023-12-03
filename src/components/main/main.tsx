@@ -5,15 +5,18 @@ import ImageFromBase64 from './upload';
 import styles from './main.module.css';
 
 const Main: FC = () => {
-  const submissions = useSelector(
+  const submissionsUncontrolled = useSelector(
     (state: RootState) => state.unconrolled.submissions.submissions
+  );
+  const submissionsControlled = useSelector(
+    (state: RootState) => state.controlled.submissions.submissions
   );
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.uncontrolled}>
         <h2>Unconrolled</h2>
-        {submissions.map((submission, index) => (
+        {submissionsUncontrolled.map((submission, index) => (
           <div key={index} className={styles.list}>
             <p>Name: {submission.name as string}</p>
             <p>Age: {submission.age as string}</p>
@@ -31,6 +34,15 @@ const Main: FC = () => {
       </div>
       <div className={styles.controlled}>
         <h2>Conrolled</h2>
+        {submissionsControlled.map((submission, index) => (
+          <div key={index} className={styles.list}>
+            <p>Name: {submission.name as string}</p>
+            <p>Age: {submission.age as string}</p>
+            <p>Email: {submission.email as string}</p>
+            <p>Password: {submission.password as string}</p>
+            <p>Gender: {submission.gender as string}</p>
+          </div>
+        ))}
       </div>
     </div>
   );
